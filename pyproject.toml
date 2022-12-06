@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "PDFMerge"
+version = "1.0.0"
+dependencies = [
+    "PyPDF2",
+]
+
+[project.scripts]
+pdfmerge = "PDFMerge.__main__:main"

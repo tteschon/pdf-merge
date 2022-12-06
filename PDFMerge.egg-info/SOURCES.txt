@@ -1,0 +1,9 @@
+pyproject.toml
+PDFMerge/PDFMerger.py
+PDFMerge/__main__.py
+PDFMerge.egg-info/PKG-INFO
+PDFMerge.egg-info/SOURCES.txt
+PDFMerge.egg-info/dependency_links.txt
+PDFMerge.egg-info/entry_points.txt
+PDFMerge.egg-info/requires.txt
+PDFMerge.egg-info/top_level.txt
