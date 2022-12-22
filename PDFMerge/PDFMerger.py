@@ -14,7 +14,7 @@ def GetFolderPath():
 
 #function that loops through all pdf's in the folder and merges them
 def MergePDFsInFolder(path):
-     """
+    """
     Merges all PDF files in the given input folder and writes the result to a new PDF file with the same name as the input folder.
 
     Args:
