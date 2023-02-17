@@ -1,10 +1,10 @@
-from PDFMerger import GetFolderPath, PdfMerger
+from PDFMerge import PDFMerger
 
 def main():
     # get the folder path
-    path = GetFolderPath()
+    path = PDFMerger.GetFolderPath()
     # merge the files
-    PdfMerger(path)
+    PDFMerger.MergePDFsInFolder(path)
 
 if __name__ == "__main__":
     main()

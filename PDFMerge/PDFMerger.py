@@ -78,3 +78,7 @@ def MergePDFsInFolder(path):
 
     # close file descriptor
     merger.close
+
+Path = GetFolderPath()
+MergePDFsInFolder(Path)
+print("done")
