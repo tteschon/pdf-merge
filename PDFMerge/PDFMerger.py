@@ -2,10 +2,10 @@
 
 #import libraries
 import os
+from datetime import datetime
 import logging
-from PyPDF2 import PdfMerger
-from tkinter import Tk
 from tkinter.filedialog import askdirectory
+from PyPDF2 import PdfMerger
 
 #function that prompts user to select folder path for input
 def GetFolderPath():
@@ -51,14 +51,25 @@ def MergePDFsInFolder(path):
         logger.error("Input folder does not exist")
         return
 
-    # create merger object
+    # Initialize merger object
     merger = PdfMerger()
+
+    # set PDF counter to 0
     pdf_count = 0
-    for pdf in os.listdir(path):
-        if pdf.endswith(".pdf"):
-            merger.append(path + "/" + pdf)
+
+    # loop through all files in the input folder
+    for filename in os.listdir(path):
+        # check if file is a PDF
+        if filename.endswith(".pdf"):
+            logger.info("Merging file: %s", filename)
+            # create full file path to the PDF
+            filepath = os.path.join(path, filename)
+            # append PDF to the merger object
+            merger.append(filepath)
+            # increment PDF counter
             pdf_count += 1
         else:
+            # skip non-PDF files
             continue
 
     # check if at least one PDF was found
@@ -67,18 +78,23 @@ def MergePDFsInFolder(path):
         return
 
     # create output file name
-    output_file = os.path.basename(os.path.normpath(path)) + ".pdf"
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    output_file_name = f"merged_{os.path.basename(os.path.normpath(path))}_{timestamp}.pdf"
+    logger.info("Output file name: %s", output_file_name)
+    
+    # Define the output file path
+    output_path = os.path.normpath(os.path.join(path, output_file_name))
+    logger.info("Output file path: %s", output_path)
 
     # write to an output PDF document
     try:
-        merger.write(path + "/" + output_file)
+        with open(output_path, 'wb') as output_file:
+            merger.write(output_file)
     except Exception as e:
-        logger.error("Error while writing to output file: {}".format(e))
+        logger.error("Error while writing to output file: %s", e)
         return
 
-    # close file descriptor
-    merger.close
+    # close merger object
+    merger.close()
 
-Path = GetFolderPath()
-MergePDFsInFolder(Path)
-print("done")
+    print("complete")
